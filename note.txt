@@ -1,0 +1,26 @@
+# Apply the deployment
+kubectl apply -f deployment.yml
+
+# Check the status of the deployment
+kubectl get deployment nginx-deployment
+
+# Describe the deployment for detailed information
+kubectl describe deployment nginx-deployment
+
+# Check the rollout status of the deployment
+kubectl rollout status deployment/nginx-deployment
+
+# Get the list of pods
+kubectl get pods
+
+# View logs of a specific pod
+kubectl logs <pod-name>
+
+# Roll back the deployment to the previous version
+kubectl rollout undo deployment/nginx-deployment
+
+# Roll back the deployment to a specific revision
+kubectl rollout undo deployment/nginx-deployment --to-revision=<revision-number>
+
+# Check the rollout history of the deployment
+kubectl rollout history deployment/nginx-deployment
