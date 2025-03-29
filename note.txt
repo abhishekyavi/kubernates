@@ -24,3 +24,41 @@ kubectl rollout undo deployment/nginx-deployment --to-revision=<revision-number>
 
 # Check the rollout history of the deployment
 kubectl rollout history deployment/nginx-deployment
+
+# Istio-related commands##########################
+
+# Download Istio
+curl -L https://istio.io/downloadIstio | sh -
+
+# Navigate to the Istio directory
+cd istio-<version>
+
+# Add istioctl to PATH
+export PATH=$PWD/bin:$PATH
+
+# Verify istioctl installation
+istioctl version
+
+# Install Istio in the cluster
+istioctl install --set profile=demo -y
+
+# Verify Istio installation
+kubectl get pods -n istio-system
+
+# Enable automatic sidecar injection for a namespace
+kubectl label namespace <namespace> istio-injection=enabled
+
+# Check the injected sidecar in a pod
+kubectl describe pod <pod-name>
+
+# Get the list of services in the mesh
+kubectl get services -n istio-system
+
+# Get the list of virtual services
+kubectl get virtualservices -A
+
+# Get the list of destination rules
+kubectl get destinationrules -A
+
+# View the configuration of a virtual service
+kubectl describe virtualservice <virtual-service-name>
