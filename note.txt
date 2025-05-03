@@ -1,3 +1,7 @@
+# run minikube strat -- to get minikube started in the prsent codespaces
+
+
+
 # Apply the deployment
 kubectl apply -f deployment.yml
 
