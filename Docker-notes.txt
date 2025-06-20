@@ -1,0 +1,52 @@
+Deploying NGINX with Dockerfile and Docker Compose – Steps & Commands
+1. Create the Dockerfile
+    - Create a file named `Dockerfile` in your project directory.
+    - Add the following content to the Dockerfile:
+      ```
+      FROM nginx:latest
+      COPY ./html /usr/share/nginx/html
+      EXPOSE 80
+      
+
+
+      2. Prepare HTML Content
+Placed your custom HTML files in a directory named html in the build context.
+3. Build the Docker Image
+    - Open a terminal and navigate to your project directory.
+    - Run the following command to build the Docker image:
+      ```
+      docker build -t my-nginx-image .
+      ```
+
+      4. Run the Docker Container (Optional, without Compose) 
+         docker run -d -p 8080:80 my-nginx-image
+
+5. Create the Docker Compose File
+    - Create a file named `docker-compose.yml` in your project directory.
+    - Add the following content to the docker-compose.yml file:
+      ```yaml
+      version: '3'
+      services:
+        nginx:
+          image: my-nginx-image
+          ports:
+            - "8080:80"
+          volumes:
+            - ./html:/usr/share/nginx/html
+      ```6. Deploy with Docker Compose
+    - In the terminal, navigate to your project directory.
+        docker compose up --build
+
+        7. Access the Application
+Opened a browser and visited:
+http://localhost:8080
+to see the NGINX server serving your custom HTML.
+
+docker compose down
+    - To stop and remove the containers, run:
+      ```
+      docker compose down
+      docker ps -a
+    docker rm <container_id>
+    docker images
+    docker rmi <image_id>
