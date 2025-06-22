@@ -1,0 +1,102 @@
+Here are the steps and commands to deploy a hello-world application using Helm charts, written in plain text format:
+
+Create the Helm chart directory structure:
+
+hello-world/
+├── Chart.yaml
+├── values.yaml
+└── templates/
+    ├── deployment.yaml
+    ├── service.yaml
+    └── _helpers.tpl
+
+Edit the files as follows:
+
+Chart.yaml:
+
+values.yaml:
+
+templates/deployment.yaml:
+
+templates/service.yaml:
+
+templates/_helpers.tpl:
+
+Start Minikube (if not already running):
+
+minikube start
+
+Check Kubernetes cluster status:
+
+kubectl cluster-info
+
+Install the Helm chart:
+
+helm install my-hello ./hello-world
+
+Check the Helm release status:
+
+helm status my-hello
+
+Verify the Kubernetes resources:
+
+kubectl get all
+kubectl get svc
+
+(Optional) Access the service using Minikube:
+
+minikube service my-hello
+
+This completes the deployment of a hello-world application using Helm charts.---
+
+Start Minikube (if not already running):
+
+minikube start
+
+Check Kubernetes cluster status:
+
+kubectl cluster-info
+
+Install the Helm chart:
+
+helm install my-hello ./hello-world --go to folder where the Helm chart is
+located and then run this command(Chart.yaml)
+Check the Helm release status:
+
+helm status my-hello
+
+Verify the Kubernetes resources:
+
+kubectl get all
+kubectl get svc
+
+(Optional) Access the service using Minikube:
+
+
+
+This completes the deployment of a hello-world application using Helm charts.
+
+
+---
+Helm template error and solution:
+
+While deploying the hello-world Helm chart, I encountered the following error:
+
+Error: INSTALLATION FAILED: template: hello-world/templates/service.yaml:4:11: executing "hello-world/templates/service.yaml" at <include "hello-world.fullname" .>: error calling include: template: no template "hello-world.fullname" associated with template "gotpl"
+
+Reason:
+This error occurs because the template helpers "hello-world.fullname" and "hello-world.name" were used in the templates (service.yaml, deployment.yaml) but were not defined.
+
+Solution:
+To fix this, I created a file named _helpers.tpl inside the templates directory with the following content:
+
+{{- define "hello-world.name" -}}
+{{ .Chart.Name }}
+{{- end }}
+
+{{- define "hello-world.fullname" -}}
+{{ include "hello-world.name" . }}-{{ .Release.Name }}
+{{- end }}
+
+After adding _helpers.tpl with these definitions, the Helm chart installed successfully.
+---
